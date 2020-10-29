@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <h3>hello PWA</h3>
+    <h4></h4>
+    <script>
+        window.onload = function() {
+            if ('serviceWorker' in window.navigator) {
+                window.navigator.serviceWorker
+                    .register('sw.js')
+                    .then((e) => {
+                        console.log('注册成功')
+                    })
+                    .catch((err) => {
+                        console.log('错误了', err)
+                    })
+            }
+        }
+
+    </script>
+    <script>
+        const h4 = document.querySelector('h4')
+        const xhr = new XMLHttpRequest()
+        xhr.open('get', '/api/data')
+        xhr.send()
+        xhr.onreadystatechange= function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                h4.innerText = xhr.responseText
+            }
+        }
+    </script>
+</body>
+</html>
